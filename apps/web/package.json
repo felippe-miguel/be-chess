@@ -1,0 +1,22 @@
+{
+  "name": "@chesslab/web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "react": "^19",
+    "react-dom": "^19",
+    "react-chessboard": "^5",
+    "@chesslab/chess-core": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^6",
+    "@vitejs/plugin-react": "^4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19"
+  }
+}

@@ -23,14 +23,14 @@ Stockfish (UCI) · chess.js · pg-boss · Vitest · Playwright · Docker Compose
 
 ## Roadmap
 
-| Fase | Objetivo |
-| ---- | -------- |
-| 1 — Foundation | Estrutura técnica: monorepo, web, api, banco, Docker Compose |
-| 2 — Chess Core e partidas | Jogar, persistir e navegar partidas; import/export PGN |
-| 3 — Stockfish e análise | Worker de análise, UCI, Centipawn Loss |
-| 4 — Classificação e Coach | Classificar jogadas e gerar explicações |
-| 5 — Player Analytics | Dashboard e evolução do jogador |
-| 6 — Expansão | Puzzles, aberturas, integrações, multiplayer |
+| Fase                      | Objetivo                                                     |
+| ------------------------- | ------------------------------------------------------------ |
+| 1 — Foundation            | Estrutura técnica: monorepo, web, api, banco, Docker Compose |
+| 2 — Chess Core e partidas | Jogar, persistir e navegar partidas; import/export PGN       |
+| 3 — Stockfish e análise   | Worker de análise, UCI, Centipawn Loss                       |
+| 4 — Classificação e Coach | Classificar jogadas e gerar explicações                      |
+| 5 — Player Analytics      | Dashboard e evolução do jogador                              |
+| 6 — Expansão              | Puzzles, aberturas, integrações, multiplayer                 |
 
 ## Como executar
 
