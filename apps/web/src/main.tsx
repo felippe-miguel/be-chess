@@ -1,3 +1,4 @@
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App.js';
 import './styles.css';
@@ -7,4 +8,12 @@ if (!container) {
   throw new Error('Root element not found');
 }
 
-createRoot(container).render(<App />);
+// StrictMode liga double-invoke de efeitos em desenvolvimento, o que
+// expoe exatamente a classe de bug que `useEngineOpponent` precisa evitar
+// (duas buscas disparadas para a mesma posicao). Ver o comentario em
+// `searchingKeyRef` naquele hook.
+createRoot(container).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);

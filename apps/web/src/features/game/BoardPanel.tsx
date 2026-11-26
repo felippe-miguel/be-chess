@@ -9,12 +9,18 @@ import type { CSSProperties } from 'react';
 import { Chessboard } from 'react-chessboard';
 
 import { chessRules } from '@chesslab/chess-core';
-import type { Piece, Square } from '@chesslab/chess-core';
+import type { Color, Piece, Square } from '@chesslab/chess-core';
 
 import type { UseChessGame } from './useChessGame.js';
 
 interface BoardPanelProps {
   game: UseChessGame;
+  /**
+   * Verdadeiro quando a cor pode ser movida pelo humano agora. Default
+   * sempre `true` (hot-seat). No modo contra o computador, a UI passa uma
+   * funcao que nega a cor da engine e nega tudo enquanto ela pensa.
+   */
+  canHumanMove?: (color: Color) => boolean;
 }
 
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as const;
@@ -56,7 +62,9 @@ function findKingSquare(board: (Piece | null)[][], color: 'w' | 'b'): Square | n
   return null;
 }
 
-export function BoardPanel({ game }: BoardPanelProps) {
+const ALWAYS_ALLOWED = (): boolean => true;
+
+export function BoardPanel({ game, canHumanMove = ALWAYS_ALLOWED }: BoardPanelProps) {
   const {
     displayedFen,
     orientation,
@@ -112,20 +120,29 @@ export function BoardPanel({ game }: BoardPanelProps) {
         options={{
           position: displayedFen,
           boardOrientation: orientation,
-          allowDragging: isLive && !snapshot.isGameOver,
+          allowDragging: isLive && !snapshot.isGameOver && canHumanMove(snapshot.turn),
           squareStyles,
           canDragPiece: ({ piece }) => {
             if (!isLive || snapshot.isGameOver) {
               return false;
             }
             const color = piece.pieceType.charAt(0);
+            if (color !== 'w' && color !== 'b') {
+              return false;
+            }
+            if (!canHumanMove(color)) {
+              return false;
+            }
             return color === snapshot.turn;
           },
           onSquareClick: ({ square }) => {
+            if (!canHumanMove(snapshot.turn)) {
+              return;
+            }
             selectSquare(square);
           },
           onPieceDrop: ({ sourceSquare, targetSquare }) => {
-            if (targetSquare === null) {
+            if (targetSquare === null || !canHumanMove(snapshot.turn)) {
               return false;
             }
             return attemptMove(sourceSquare, targetSquare);
