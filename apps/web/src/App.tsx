@@ -1,3 +1,5 @@
+import { GameView } from './features/game/GameView.js';
+
 export function App() {
-  return <div>ChessLab</div>;
+  return <GameView />;
 }
