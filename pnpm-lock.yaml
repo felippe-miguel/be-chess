@@ -266,6 +266,12 @@ importers:
         specifier: ^1
         version: 1.4.0
 
+  packages/chess-engine:
+    dependencies:
+      '@chesslab/chess-core':
+        specifier: workspace:*
+        version: link:../chess-core
+
 packages:
 
   '@babel/code-frame@7.29.7':

@@ -4,7 +4,8 @@
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "paths": {
-      "@chesslab/chess-core": ["./packages/chess-core/src/index.ts"]
+      "@chesslab/chess-core": ["./packages/chess-core/src/index.ts"],
+      "@chesslab/chess-engine": ["./packages/chess-engine/src/index.ts"]
     }
   },
   "include": ["apps/**/*.ts", "apps/**/*.tsx", "packages/**/*.ts"],
