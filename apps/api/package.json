@@ -1,0 +1,19 @@
+{
+  "name": "@chesslab/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts"
+  },
+  "dependencies": {
+    "fastify": "^5",
+    "@fastify/cors": "^10",
+    "zod": "^4"
+  },
+  "devDependencies": {
+    "tsx": "^4",
+    "pino-pretty": "^13"
+  }
+}
