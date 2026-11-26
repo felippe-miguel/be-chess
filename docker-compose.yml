@@ -9,9 +9,11 @@ services:
       HOST: 0.0.0.0
       CORS_ORIGIN: http://localhost:8080
     ports:
-      # Porta do host configuravel via API_PORT, para evitar conflito com
-      # outros projetos que ja usem a 3000 nesta maquina.
-      - '${API_PORT:-3000}:3000'
+      # Porta do host configuravel via API_PORT. O default e 3100 porque a
+      # 3000 ja e usada por outro projeto nesta maquina. Dentro da rede do
+      # compose a api continua escutando na 3000, e o nginx do servico web
+      # faz proxy para api:3000 - trocar a porta do host nao afeta isso.
+      - '${API_PORT:-3100}:3000'
     restart: unless-stopped
 
   web:
