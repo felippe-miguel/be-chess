@@ -5,7 +5,14 @@ import globals from 'globals';
 
 export default tseslint.config(
   {
-    ignores: ['**/dist/**', '**/node_modules/**', '**/*.config.*'],
+    ignores: [
+      '**/dist/**',
+      '**/node_modules/**',
+      '**/*.config.*',
+      // Asset do Stockfish copiado por `scripts/copy-engine-assets.mjs`;
+      // nao e codigo-fonte deste repositorio.
+      'apps/web/public/engine/**',
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

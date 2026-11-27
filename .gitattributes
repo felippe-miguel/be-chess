@@ -1,0 +1,16 @@
+# Normaliza finais de linha no repositorio: LF no commit, nativo no checkout.
+# Sem isso o Git emite um aviso por arquivo em cada commit no Windows.
+* text=auto eol=lf
+
+# Arquivos que devem permanecer LF tambem no disco.
+*.sh text eol=lf
+*.Dockerfile text eol=lf
+Dockerfile text eol=lf
+
+# Binarios e gerados.
+pnpm-lock.yaml linguist-generated=true -diff
+*.nnue binary
+*.wasm binary
+*.png binary
+*.jpg binary
+*.ico binary

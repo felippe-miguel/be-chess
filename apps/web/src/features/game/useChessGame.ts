@@ -9,7 +9,7 @@
  */
 import { useRef, useState } from 'react';
 
-import { chessRules, STARTING_FEN } from '@chesslab/chess-core';
+import { chessRules, parseUci, STARTING_FEN } from '@chesslab/chess-core';
 import type {
   AppliedMove,
   ChessGame,
@@ -17,6 +17,7 @@ import type {
   GameStateSnapshot,
   PromotionPiece,
   Square,
+  Uci,
 } from '@chesslab/chess-core';
 
 import {
@@ -156,16 +157,61 @@ export function useChessGame() {
     setPendingPromotion(null);
   }
 
-  function undo(): void {
+  /**
+   * Desfaz `plies` lances (1 por default). Usado tanto pelo botao "Desfazer"
+   * do hot-seat (1 ply) quanto pelo modo contra o computador (2 plies: a
+   * resposta da engine e o lance do humano). Para menos lances do que
+   * `plies` no historico, desfaz o quanto houver em vez de nao fazer nada.
+   */
+  function undoPlies(plies: number): void {
     if (!isLive) {
       return;
     }
-    const undone = gameRef.current.undo();
-    if (undone !== null) {
+    let undoneAny = false;
+    for (let i = 0; i < plies; i += 1) {
+      const undone = gameRef.current.undo();
+      if (undone === null) {
+        break;
+      }
+      undoneAny = true;
+    }
+    if (undoneAny) {
       setSelectedSquare(null);
       setPendingPromotion(null);
       sync();
     }
+  }
+
+  /**
+   * Assinatura sem parametros preservada de proposito: este handler e
+   * passado direto como `onClick` em `GameControls` (`onClick={undo}`), e um
+   * parametro opcional receberia o `MouseEvent` do clique em vez de um
+   * numero de plies.
+   */
+  function undo(): void {
+    undoPlies(1);
+  }
+
+  /**
+   * Aplica um lance vindo da engine (notacao UCI). Usado por
+   * `useEngineOpponent`; nunca lanca por entrada malformada, apenas retorna
+   * `false`.
+   */
+  function applyUci(uci: Uci): boolean {
+    if (!isLive || pendingPromotion !== null) {
+      return false;
+    }
+    const moveInput = parseUci(uci);
+    if (moveInput === null) {
+      return false;
+    }
+    const applied = gameRef.current.move(moveInput);
+    if (applied === null) {
+      return false;
+    }
+    setSelectedSquare(null);
+    sync();
+    return true;
   }
 
   function reset(): void {
@@ -243,6 +289,8 @@ export function useChessGame() {
     confirmPromotion,
     cancelPromotion,
     undo,
+    undoPlies,
+    applyUci,
     reset,
     goToPly,
     first,

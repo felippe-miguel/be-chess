@@ -237,6 +237,9 @@ importers:
       '@chesslab/chess-core':
         specifier: workspace:*
         version: link:../../packages/chess-core
+      '@chesslab/chess-engine':
+        specifier: workspace:*
+        version: link:../../packages/chess-engine
       react:
         specifier: ^19
         version: 19.3.1
@@ -265,6 +268,15 @@ importers:
       chess.js:
         specifier: ^1
         version: 1.4.0
+
+  packages/chess-engine:
+    dependencies:
+      '@chesslab/chess-core':
+        specifier: workspace:*
+        version: link:../chess-core
+      stockfish:
+        specifier: 19.0.1
+        version: 19.0.1
 
 packages:
 
@@ -1633,6 +1645,10 @@ packages:
 
   std-env@4.3.0:
     resolution: {integrity: sha512-OtU/EgQ1kIm5KwqQpBC6ZEMXrZRui11w8zgfTWp8cdO9B8OaPsbA8bTHO2P+HNo1VlUTGMVBwPhydu6poeXiag==}
+
+  stockfish@19.0.1:
+    resolution: {integrity: sha512-bTwsO4e9HAwPBKls1+szcfibmaWRNzTF20rQE/XPdB3LOSoT6XTZDr1zYwriwSRRFT5MkvqrglPmJrKEVXGnyQ==}
+    hasBin: true
 
   strip-json-comments@5.1.0:
     resolution: {integrity: sha512-ErcwpJBYr8EfX/Br7JauOIGXoRE92w0hVtuS9j92UFgbATxA+WRSIZksSUDzEeItfWB/0QCEprTZT55RSINUHQ==}
@@ -3074,6 +3090,8 @@ snapshots:
   split2@4.2.0: {}
 
   std-env@4.3.0: {}
+
+  stockfish@19.0.1: {}
 
   strip-json-comments@5.1.0: {}
 

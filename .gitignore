@@ -32,3 +32,4 @@ Thumbs.db
 # Engine binaries (baixados localmente, nao versionados)
 engines/
 *.nnue
+apps/web/public/engine/

@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node scripts/copy-engine-assets.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/copy-engine-assets.mjs",
     "build": "vite build",
     "preview": "vite preview --host"
   },
@@ -11,7 +13,8 @@
     "react": "^19",
     "react-dom": "^19",
     "react-chessboard": "^5",
-    "@chesslab/chess-core": "workspace:*"
+    "@chesslab/chess-core": "workspace:*",
+    "@chesslab/chess-engine": "workspace:*"
   },
   "devDependencies": {
     "vite": "^6",
